@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float jumpForce = 5f; // La fuerza del salto
+    public float jumpForce = 20f;
     private bool isGrounded;
-    private Rigidbody2D rb; // Usaremos Rigidbody2D en lugar de Rigidbody para 2D
+    private Rigidbody2D rb;
 
     private void Start()
     {
@@ -15,14 +16,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Determinar si el jugador está en el suelo
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1f);
-
-        // Salto
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            // Aplicar una fuerza vertical para saltar
-            rb.velocity = new Vector2(rb.velocity.y, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isGrounded = false;
         }
     }
 }
