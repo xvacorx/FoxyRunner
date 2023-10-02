@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float jumpForce = 20f;
+    float jumpForce = 15f;
     private bool isGrounded;
     private Rigidbody2D rb;
+
+    public GameOverScreen Death;
 
     private void Start()
     {
@@ -19,22 +21,16 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            isGrounded = false;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Floor"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            isGrounded = true;
+            Death.ActiveScreen();
         }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Floor"))
-        {
-            isGrounded = false;
-        }
+        isGrounded = true;
     }
 }
