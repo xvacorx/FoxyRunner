@@ -12,7 +12,7 @@ public class ScoreScript : MonoBehaviour
 
     private void Start()
     {
-        highScore = PlayerPrefs.GetFloat("Puntaje más alto: {0}", 0);
+        highScore = PlayerPrefs.GetFloat("HighScore", 0);
         ActualizarPuntajes();
     }
 
@@ -35,10 +35,12 @@ public class ScoreScript : MonoBehaviour
         scoreText.text = "Puntaje: " + (contadorScore * 2).ToString("F0");
         highScoreText.text = "Puntaje más alto: " + (highScore * 2).ToString("F0");
     }
+
     public void ActiveScreen()
     {
         gameObject.SetActive(true);
     }
+
     public void DisableScreen()
     {
         gameObject.SetActive(false);

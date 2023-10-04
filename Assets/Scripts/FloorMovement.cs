@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FloorMovement : MonoBehaviour
 {
-    float offsetX = 21f;
-    float speed = 5f;
+    public float offsetX = 21f;
+    public float speed = 5f;
 
     private void Update()
     {
